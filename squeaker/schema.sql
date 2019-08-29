@@ -1,0 +1,56 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS replies;
+DROP TABLE IF EXISTS aboutuser;
+/*DROP TABLE IF EXISTS postlikes;*/
+
+CREATE TABLE user (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL
+);
+
+CREATE TABLE post (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  author_id INTEGER NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  attach IMAGE NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES user (id)
+);
+
+CREATE TABLE replies (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  author_id INTEGER NOT NULL,
+  post_id INTEGER NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  react TEXT NOT NULL,
+  /*image VARBINARY(MAX),*/
+  FOREIGN KEY (author_id) REFERENCES user (id) 
+  FOREIGN KEY (post_id) REFERENCES post (id)
+);
+
+CREATE TABLE aboutuser (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  author_id INTEGER NOT NULL,
+  /*profile_pic VARBINARY(MAX) NOT NULL,*/
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  abouts TEXT NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES user (id)
+);
+/*
+CREATE TABLE postlikes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  liked boolean NOT NULL,
+  numlikes INTEGER,
+  author_id INTEGER NOT NULL,
+  post_id INTEGER NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES user (id)
+  FOREIGN KEY (post_id) REFERENCES post (id)
+	
+);
+*/
+
+insert into user(id, username, password)
+	values (0, 'admin', "pbkdf2:sha256:150000$2Je2mEFf$b567f8b959a2559217230c817c53f2ef2931f8dcd3234819362be92a3ea70ffb");
