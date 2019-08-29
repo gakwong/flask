@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}About {{ g.user['username'] }}{% endblock %}</h1>
+  <a class="button" href="{{ url_for('blog.account') }}">Go Back </a>
+
+  <a class="button" href="{{ url_for('blog.about_create') }}" > Create Bio </a>
+		
+{% endblock %}
+
+{% block content %}
+ {% for aboutuser in abouts %}
+	<article class="post">
+		{% if g.user['id'] == aboutuser['author_id'] %}
+		<p class="about1">{{ aboutuser['abouts'] }}</p>
+		{%endif%}
+	</article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}React{% endblock %}</h1>
+  <a class="button" href="{{ url_for('blog.index') }}">Go Back</a>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="react">React</label>
+    <textarea name="react" id="react">{{ request.form['react']}}</textarea>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+{% endblock %}

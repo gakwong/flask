@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}About {{ g.user['username'] }} {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="about">Edit Biography</label>
+    <textarea name="about" id="about">{{ request.form['abouts']}}</textarea>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+{% endblock %}
